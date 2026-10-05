@@ -2203,6 +2203,8 @@ return (
   >
 {orthoLoading && (
   <div className="layer-loading ortho-loading">
+    <div className="ortho-spinner" />
+
     <strong className="layer-loading-title">
       MEMUAT ORTHOPHOTO
     </strong>
