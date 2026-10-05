@@ -623,15 +623,7 @@ if (DTM.aws) {
       });
 
     mapRef.current = map;
-console.log('[ORTHO CHECK]', {
-  basemap,
-  source: map.getSource('ortho'),
-  layer: map.getLayer('bm-ortho'),
-  visibility: map.getLayoutProperty(
-    'bm-ortho',
-    'visibility'
-  )
-});
+
     const sourceLayerIds =
       new Set(
         LAYERS.map(
@@ -885,6 +877,15 @@ map.addControl(
     map.on(
       'load',
       () => {
+        console.log('[ORTHO CHECK AFTER LOAD]', {
+  basemap,
+  source: map.getSource('ortho'),
+  layer: map.getLayer('bm-ortho'),
+  visibility: map.getLayoutProperty(
+    'bm-ortho',
+    'visibility'
+  )
+});
         for (
           const L
           of LAYERS
@@ -1719,78 +1720,61 @@ map.addSource(
     );
   }
 
-  useEffect(() => {
-    const map =
-      mapRef.current;
+ useEffect(() => {
+  const map = mapRef.current;
 
-    if (
-      !map?.isStyleLoaded()
-    ) {
+  if (!map) {
+    return;
+  }
+
+  const basemapLayers: {
+    id: string;
+    basemap: Basemap;
+  }[] = [
+    {
+      id: 'bm-esri-streets',
+      basemap: 'esri-streets'
+    },
+    {
+      id: 'bm-esri',
+      basemap: 'esri'
+    },
+    {
+      id: 'bm-google-hybrid',
+      basemap: 'google-hybrid'
+    },
+    {
+      id: 'bm-google-streets',
+      basemap: 'google-streets'
+    },
+    {
+      id: 'bm-opentopo',
+      basemap: 'opentopo'
+    },
+    {
+      id: 'bm-ortho',
+      basemap: 'ortho'
+    }
+  ];
+
+  const terapkanBasemap = () => {
+    if (!map.isStyleLoaded()) {
       return;
     }
 
-    const basemapLayers: {
-      id: string;
-      basemap: Basemap;
-    }[] = [
-      {
-        id:
-          'bm-esri-streets',
-        basemap:
-          'esri-streets'
-      },
+    console.log('[BASEMAP]', basemap);
 
-      {
-        id:
-          'bm-esri',
-        basemap:
-          'esri'
-      },
-
-      {
-        id:
-          'bm-google-hybrid',
-        basemap:
-          'google-hybrid'
-      },
-
-      {
-        id:
-          'bm-google-streets',
-        basemap:
-          'google-streets'
-      },
-
-      {
-        id:
-          'bm-opentopo',
-        basemap:
-          'opentopo'
-      },
-
-      {
-        id:
-          'bm-ortho',
-        basemap:
-          'ortho'
-      }
-    ];
-
-    for (
-      const item
-      of basemapLayers
-    ) {
-      if (
-        !map.getLayer(
+    for (const item of basemapLayers) {
+      if (!map.getLayer(item.id)) {
+        console.warn(
+          '[BASEMAP] Layer tidak ditemukan:',
           item.id
-        )
-      ) {
+        );
         continue;
       }
 
       const visible =
-        item.basemap ===
-            basemap;
+        item.basemap === basemap;
 
       map.setLayoutProperty(
         item.id,
@@ -1799,12 +1783,36 @@ map.addSource(
           ? 'visible'
           : 'none'
       );
-    }
-  }, [
-    basemap,
-    beriPesan
-  ]);
 
+      console.log(
+        '[BASEMAP]',
+        item.id,
+        visible ? 'visible' : 'none'
+      );
+    }
+  };
+
+  // Kalau style sudah siap, langsung terapkan
+  if (map.isStyleLoaded()) {
+    terapkanBasemap();
+  } else {
+    // Kalau belum siap, tunggu sampai load
+    map.once(
+      'load',
+      terapkanBasemap
+    );
+  }
+
+  return () => {
+    map.off(
+      'load',
+      terapkanBasemap
+    );
+  };
+}, [
+  basemap,
+  beriPesan
+]);
   useEffect(() => {
     const map =
       mapRef.current;
