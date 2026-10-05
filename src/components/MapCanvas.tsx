@@ -527,8 +527,7 @@ if (DTM.aws) {
 
         layout: {
           visibility:
-            basemap === 'esri' ||
-            basemap === 'ortho'
+            basemap === 'esri'
               ? 'visible'
               : 'none'
         }
@@ -624,7 +623,15 @@ if (DTM.aws) {
       });
 
     mapRef.current = map;
-
+console.log('[ORTHO CHECK]', {
+  basemap,
+  source: map.getSource('ortho'),
+  layer: map.getLayer('bm-ortho'),
+  visibility: map.getLayoutProperty(
+    'bm-ortho',
+    'visibility'
+  )
+});
     const sourceLayerIds =
       new Set(
         LAYERS.map(
@@ -1782,10 +1789,7 @@ map.addSource(
       }
 
       const visible =
-        item.id === 'bm-esri'
-          ? basemap === 'esri' ||
-            basemap === 'ortho'
-          : item.basemap ===
+        item.basemap ===
             basemap;
 
       map.setLayoutProperty(
