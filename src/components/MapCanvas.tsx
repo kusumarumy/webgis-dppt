@@ -102,7 +102,36 @@ const orthoRequestRef =
     pilihBidang,
     beriPesan
   } = useApp();
+const sourceLayerIds =
+  new Set(
+    LAYERS.map(
+      (layer) => layer.id
+    )
+  );
 
+const selesaiLoadingLayer = (
+  sourceId: string
+) => {
+  if (
+    !sourceLayerIds.has(
+      sourceId
+    )
+  ) {
+    return;
+  }
+
+  layerLoadingDimintaRef.current.delete(
+    sourceId
+  );
+
+  setLayerLoading(
+    (prev) =>
+      prev.filter(
+        (id) =>
+          id !== sourceId
+      )
+  );
+};
   useEffect(() => {
     const handleAnalisisBidang = (
       event: Event
@@ -601,29 +630,20 @@ if (DTM.aws) {
     const map =
       new maplibregl.Map({
         container: ref.current,
-
         center: [
           111.879,
           -7.168
         ],
-
         zoom: 12.4,
-
         bearing: 18,
-
         maxPitch: 75,
-
         attributionControl:
           false,
-
         style: {
           version: 8,
-
           glyphs:
             'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf',
-
           sources,
-
           layers:
             layersAwal
         }
@@ -634,26 +654,14 @@ const handleOrthoLoading = (e: any) => {
   if (e?.sourceId !== 'ortho') {
     return;
   }
-
-  // Jangan mematikan loading dari sourcedata.
-  // Loading dikontrol oleh pemilihan basemap + event idle.
 };
 
 const handleOrthoLoaded = (e: any) => {
   if (e?.sourceId !== 'ortho') {
     return;
   }
-
-  // Sengaja kosong.
-  // Jangan setOrthoLoading(false) di sini.
 };
 
-    const sourceLayerIds =
-      new Set(
-        LAYERS.map(
-          (layer) => layer.id
-        )
-      );
 
     const mulaiLoadingLayer = (
       sourceId: string
@@ -692,30 +700,6 @@ const handleOrthoLoaded = (e: any) => {
                 ...prev,
                 sourceId
               ]
-      );
-    };
-
-    const selesaiLoadingLayer = (
-      sourceId: string
-    ) => {
-      if (
-        !sourceLayerIds.has(
-          sourceId
-        )
-      ) {
-        return;
-      }
-
-      layerLoadingDimintaRef.current.delete(
-        sourceId
-      );
-
-      setLayerLoading(
-        (prev) =>
-          prev.filter(
-            (id) =>
-              id !== sourceId
-          )
       );
     };
 
