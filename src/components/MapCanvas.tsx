@@ -1874,23 +1874,11 @@ useEffect(() => {
 
     const sedangOrtho =
       basemap === 'ortho';
-
-    // =====================================================
-    // ORTHOPHOTO
-    // =====================================================
     if (sedangOrtho) {
-      // Tampilkan popup SEBELUM mengganti visibility.
-      // Ini penting supaya React punya kesempatan
-      // merender loading popup.
       setOrthoLoading(true);
     } else {
-      // Basemap lain → tutup loading ortho.
       setOrthoLoading(false);
     }
-
-    // =====================================================
-    // GANTI VISIBILITY BASEMAP
-    // =====================================================
     for (
       const item of basemapLayers
     ) {
@@ -1901,21 +1889,24 @@ useEffect(() => {
           '[BASEMAP] Layer tidak ditemukan:',
           item.id
         );
-
         continue;
       }
 
-      const visible =
-        item.basemap ===
-        basemap;
-
-      map.setLayoutProperty(
-        item.id,
-        'visibility',
-        visible
-          ? 'visible'
-          : 'none'
-      );
+let visible =
+  item.basemap === basemap;
+if (
+  basemap === 'ortho' &&
+  item.basemap === 'esri'
+) {
+  visible = true;
+}
+map.setLayoutProperty(
+  item.id,
+  'visibility',
+  visible
+    ? 'visible'
+    : 'none'
+);
 
       console.log(
         '[BASEMAP]',
