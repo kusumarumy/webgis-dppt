@@ -7870,19 +7870,47 @@ main.body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
   z-index: 10000;
 
-  width: min(360px, calc(100vw - 40px));
-  padding: 20px 24px;
+  width: 300px;
+  box-sizing: border-box;
+
+  padding: 20px 22px;
 
   border-radius: 14px;
-  background: rgba(14, 23, 32, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.14);
 
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(14, 23, 32, 0.10);
+
+  box-shadow:
+    0 10px 30px rgba(14, 23, 32, 0.18),
+    0 2px 8px rgba(14, 23, 32, 0.08);
 
   text-align: center;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
   pointer-events: none;
+}
+.ortho-loading .layer-loading-title {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+
+  color: #1e2733;
+}
+
+.ortho-loading .layer-loading-text {
+  font-size: 13px;
+  line-height: 1.5;
+
+  color: #667085;
 }
 .ortho-loading::before {
   content: '';
