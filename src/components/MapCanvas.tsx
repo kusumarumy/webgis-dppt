@@ -89,49 +89,72 @@ const orthoRequestRef =
   useRef(0);
   const [bangunanTerpilih, setBangunanTerpilih] =
     useState<Record<string, any> | null>(null);
-  const {
-    basemap,
-    setBasemap,
-    dtm,
-    exag,
-    labelNomor,
-    modeAnalisis,
-    layerAktif,
-    tema,
-    filterBidang,
-    pilihBidang,
-    beriPesan
-  } = useApp();
-const sourceLayerIds =
-  new Set(
-    LAYERS.map(
-      (layer) => layer.id
-    )
-  );
-
-const selesaiLoadingLayer = (
-  sourceId: string
-) => {
-  if (
-    !sourceLayerIds.has(
-      sourceId
-    )
-  ) {
-    return;
-  }
-
-  layerLoadingDimintaRef.current.delete(
-    sourceId
-  );
-
-  setLayerLoading(
-    (prev) =>
-      prev.filter(
-        (id) =>
-          id !== sourceId
+const {
+  basemap,
+  dtm,
+  layerAktif,
+  tema,
+  filterBidang,
+  pilihBidang,
+  beriPesan
+} = useApp();
+ const sourceLayerIds =
+    new Set(
+      LAYERS.map(
+        (layer) => layer.id
       )
-  );
-};
+    );
+
+  const selesaiLoadingLayer = (
+    sourceId: string
+  ) => {
+    if (
+      !sourceLayerIds.has(
+        sourceId
+      )
+    ) {
+      return;
+    }
+
+    layerLoadingDimintaRef.current.delete(
+      sourceId
+    );
+
+    setLayerLoading(
+      (prev) =>
+        prev.filter(
+          (id) =>
+            id !== sourceId
+        )
+    );
+  };
+
+  const cekSumberSelesai = (
+    sourceId: string
+  ) => {
+    requestAnimationFrame(
+      () => {
+        if (
+          !mapRef.current ||
+          !layerLoadingDimintaRef.current.has(
+            sourceId
+          )
+        ) {
+          return;
+        }
+
+        if (
+          mapRef.current.isSourceLoaded(
+            sourceId
+          )
+        ) {
+          selesaiLoadingLayer(
+            sourceId
+          );
+        }
+      }
+    );
+  };
   useEffect(() => {
     const handleAnalisisBidang = (
       event: Event
@@ -650,18 +673,6 @@ if (DTM.aws) {
       });
 
     mapRef.current = map;
-const handleOrthoLoading = (e: any) => {
-  if (e?.sourceId !== 'ortho') {
-    return;
-  }
-};
-
-const handleOrthoLoaded = (e: any) => {
-  if (e?.sourceId !== 'ortho') {
-    return;
-  }
-};
-
 
     const mulaiLoadingLayer = (
       sourceId: string
@@ -1393,15 +1404,7 @@ map.addSource(
         'error',
         handleMapError
       );
-map.off(
-  'sourcedataloading',
-  handleOrthoLoading
-);
 
-map.off(
-  'sourcedata',
-  handleOrthoLoaded
-);
       layerLoadingDimintaRef.current.clear();
       setLayerLoading([]);
 
@@ -1767,55 +1770,75 @@ useEffect(() => {
   const requestId =
     ++orthoRequestRef.current;
 
-  // Bersihkan timer sebelumnya.
   if (orthoLoadingTimerRef.current) {
     clearTimeout(
       orthoLoadingTimerRef.current
     );
 
-    orthoLoadingTimerRef.current =
-      null;
+    orthoLoadingTimerRef.current = null;
   }
 
+  const requestMasihAktif = () => {
+    return (
+      requestId ===
+        orthoRequestRef.current &&
+      mapRef.current === map
+    );
+  };
+
   const tutupLoadingOrtho = () => {
-    if (
-      requestId !==
-      orthoRequestRef.current
-    ) {
+    if (!requestMasihAktif()) {
       return;
     }
 
-    // Beri waktu minimum agar popup benar-benar
-    // sempat dirender oleh React dan tidak flicker.
+    if (orthoLoadingTimerRef.current) {
+      clearTimeout(
+        orthoLoadingTimerRef.current
+      );
+    }
+
+    /*
+     * Delay kecil supaya loading tidak berkedip
+     * ketika tile selesai sangat cepat.
+     */
     orthoLoadingTimerRef.current =
       setTimeout(() => {
         if (
-          requestId ===
-            orthoRequestRef.current &&
-          mapRef.current === map
+          requestMasihAktif() &&
+          basemap === 'ortho'
         ) {
           setOrthoLoading(false);
         }
       }, 350);
   };
 
-  const tungguOrtho = () => {
-    if (
-      requestId !==
-      orthoRequestRef.current
-    ) {
+  const cekOrthoSelesai = () => {
+    if (!requestMasihAktif()) {
       return;
     }
 
-    if (
-      mapRef.current !== map
-    ) {
+    if (basemap !== 'ortho') {
       return;
     }
 
+    if (!map.isStyleLoaded()) {
+      return;
+    }
+
+    /*
+     * Source sudah selesai dimuat.
+     */
     if (
-      !map.isStyleLoaded()
+      map.isSourceLoaded('ortho')
     ) {
+      tutupLoadingOrtho();
+    }
+  };
+
+  const handleOrthoSourceData = (
+    e: any
+  ) => {
+    if (!requestMasihAktif()) {
       return;
     }
 
@@ -1825,110 +1848,137 @@ useEffect(() => {
       return;
     }
 
-    // Kalau source sudah selesai dimuat,
-    // tutup loading setelah delay minimum.
     if (
+      e?.sourceId !== 'ortho'
+    ) {
+      return;
+    }
+
+    /*
+     * MapLibre akan mengirim sourcedata
+     * beberapa kali. Hanya tutup loading
+     * ketika source benar-benar selesai.
+     */
+    if (
+      e?.isSourceLoaded === true ||
       map.isSourceLoaded('ortho')
     ) {
       tutupLoadingOrtho();
-      return;
     }
+  };
 
-    // Kalau belum selesai, tunggu sourcedata.
-    map.once(
-      'idle',
-      () => {
-        if (
-          requestId !==
-          orthoRequestRef.current
-        ) {
-          return;
-        }
-
-        if (
-          mapRef.current !== map
-        ) {
-          return;
-        }
-
-        if (
-          basemap === 'ortho'
-        ) {
-          tutupLoadingOrtho();
-        }
-      }
-    );
+  const handleMapIdle = () => {
+    cekOrthoSelesai();
   };
 
   const terapkanBasemap = () => {
-    if (
-      !map.isStyleLoaded()
-    ) {
+    if (!requestMasihAktif()) {
       return;
     }
 
-    console.log(
-      '[BASEMAP]',
-      basemap
-    );
+    if (!map.isStyleLoaded()) {
+      return;
+    }
 
     const sedangOrtho =
       basemap === 'ortho';
-    if (sedangOrtho) {
-      setOrthoLoading(true);
-    } else {
-      setOrthoLoading(false);
-    }
+
+    /*
+     * Aktifkan indikator loading hanya
+     * ketika user memilih orthophoto.
+     */
+    setOrthoLoading(
+      sedangOrtho
+    );
+
     for (
       const item of basemapLayers
     ) {
       if (
         !map.getLayer(item.id)
       ) {
-        console.warn(
-          '[BASEMAP] Layer tidak ditemukan:',
-          item.id
-        );
         continue;
       }
 
-let visible =
-  item.basemap === basemap;
-if (
-  basemap === 'ortho' &&
-  item.basemap === 'esri'
-) {
-  visible = true;
-}
-map.setLayoutProperty(
-  item.id,
-  'visibility',
-  visible
-    ? 'visible'
-    : 'none'
-);
+      let visible =
+        item.basemap === basemap;
 
-      console.log(
-        '[BASEMAP]',
+      /*
+       * Saat orthophoto aktif:
+       *
+       * Esri tetap menjadi basemap
+       * di bawah orthophoto.
+       */
+      if (
+        sedangOrtho &&
+        item.basemap === 'esri'
+      ) {
+        visible = true;
+      }
+
+      map.setLayoutProperty(
         item.id,
+        'visibility',
         visible
           ? 'visible'
           : 'none'
       );
     }
 
-    // =====================================================
-    // TUNGGU ORTHOPHOTO
-    // =====================================================
-    if (sedangOrtho) {
-      // Beri satu frame agar visibility sudah benar-benar
-      // diterapkan sebelum pengecekan source.
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          tungguOrtho();
-        });
-      });
+    if (!sedangOrtho) {
+      /*
+       * Tidak perlu menunggu source ortho.
+       */
+      map.off(
+        'sourcedata',
+        handleOrthoSourceData
+      );
+
+      map.off(
+        'idle',
+        handleMapIdle
+      );
+
+      return;
     }
+
+    /*
+     * Pastikan listener dipasang hanya sekali
+     * untuk request basemap saat ini.
+     */
+    map.off(
+      'sourcedata',
+      handleOrthoSourceData
+    );
+
+    map.off(
+      'idle',
+      handleMapIdle
+    );
+
+    map.on(
+      'sourcedata',
+      handleOrthoSourceData
+    );
+
+    map.on(
+      'idle',
+      handleMapIdle
+    );
+
+    /*
+     * Tunggu dua frame agar visibility layer
+     * sudah benar-benar diterapkan MapLibre.
+     */
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (!requestMasihAktif()) {
+          return;
+        }
+
+        cekOrthoSelesai();
+      });
+    });
   };
 
   if (
@@ -1948,6 +1998,16 @@ map.setLayoutProperty(
       terapkanBasemap
     );
 
+    map.off(
+      'sourcedata',
+      handleOrthoSourceData
+    );
+
+    map.off(
+      'idle',
+      handleMapIdle
+    );
+
     if (
       orthoLoadingTimerRef.current
     ) {
@@ -1959,9 +2019,8 @@ map.setLayoutProperty(
         null;
     }
   };
-}, [
-  basemap
-]);
+}, [basemap]);
+  
   useEffect(() => {
     const map =
       mapRef.current;
