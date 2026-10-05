@@ -80,6 +80,8 @@ const terpilihRef =
     });
   const [layerLoading, setLayerLoading] =
     useState<string[]>([]);
+  const [orthoLoading, setOrthoLoading] =
+  useState(false);
   const [bangunanTerpilih, setBangunanTerpilih] =
     useState<Record<string, any> | null>(null);
   const {
@@ -623,7 +625,33 @@ if (DTM.aws) {
       });
 
     mapRef.current = map;
+const handleOrthoLoading = (e: any) => {
+  if (e?.sourceId !== 'ortho') {
+    return;
+  }
 
+  setOrthoLoading(true);
+};
+
+const handleOrthoLoaded = (e: any) => {
+  if (e?.sourceId !== 'ortho') {
+    return;
+  }
+
+  if (e.isSourceLoaded) {
+    setOrthoLoading(false);
+  }
+};
+
+map.on(
+  'sourcedataloading',
+  handleOrthoLoading
+);
+
+map.on(
+  'sourcedata',
+  handleOrthoLoaded
+);
     const sourceLayerIds =
       new Set(
         LAYERS.map(
@@ -1385,7 +1413,15 @@ map.addSource(
         'error',
         handleMapError
       );
+map.off(
+  'sourcedataloading',
+  handleOrthoLoading
+);
 
+map.off(
+  'sourcedata',
+  handleOrthoLoaded
+);
       layerLoadingDimintaRef.current.clear();
       setLayerLoading([]);
 
@@ -1749,40 +1785,52 @@ map.addSource(
     }
   ];
 
-  const terapkanBasemap = () => {
-    if (!map.isStyleLoaded()) {
-      return;
+const terapkanBasemap = () => {
+  if (!map.isStyleLoaded()) {
+    return;
+  }
+
+  console.log('[BASEMAP]', basemap);
+
+  if (basemap === 'ortho') {
+    setOrthoLoading(true);
+
+    // Kalau source ortho sudah benar-benar selesai,
+    // tidak perlu menampilkan loading.
+    if (map.isSourceLoaded('ortho')) {
+      setOrthoLoading(false);
+    }
+  } else {
+    setOrthoLoading(false);
+  }
+
+  for (const item of basemapLayers) {
+    if (!map.getLayer(item.id)) {
+      console.warn(
+        '[BASEMAP] Layer tidak ditemukan:',
+        item.id
+      );
+      continue;
     }
 
-    console.log('[BASEMAP]', basemap);
+    const visible =
+      item.basemap === basemap;
 
-    for (const item of basemapLayers) {
-      if (!map.getLayer(item.id)) {
-        console.warn(
-          '[BASEMAP] Layer tidak ditemukan:',
-          item.id
-        );
-        continue;
-      }
+    map.setLayoutProperty(
+      item.id,
+      'visibility',
+      visible
+        ? 'visible'
+        : 'none'
+    );
 
-      const visible =
-        item.basemap === basemap;
-
-      map.setLayoutProperty(
-        item.id,
-        'visibility',
-        visible
-          ? 'visible'
-          : 'none'
-      );
-
-      console.log(
-        '[BASEMAP]',
-        item.id,
-        visible ? 'visible' : 'none'
-      );
-    }
-  };
+    console.log(
+      '[BASEMAP]',
+      item.id,
+      visible ? 'visible' : 'none'
+    );
+  }
+};
 
   // Kalau style sudah siap, langsung terapkan
   if (map.isStyleLoaded()) {
@@ -2153,7 +2201,17 @@ return (
     ref={ref}
     className="canvas"
   >
+{orthoLoading && (
+  <div className="layer-loading ortho-loading">
+    <strong className="layer-loading-title">
+      MEMUAT ORTHOPHOTO
+    </strong>
 
+    <div className="layer-loading-text">
+      Menyiapkan citra orthophoto...
+    </div>
+  </div>
+)}
     {layerLoading.length > 0 && (
       <div className="layer-loading">
         <strong className="layer-loading-title">
