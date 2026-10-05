@@ -877,15 +877,7 @@ map.addControl(
     map.on(
       'load',
       () => {
-        console.log('[ORTHO CHECK AFTER LOAD]', {
-  basemap,
-  source: map.getSource('ortho'),
-  layer: map.getLayer('bm-ortho'),
-  visibility: map.getLayoutProperty(
-    'bm-ortho',
-    'visibility'
-  )
-});
+
         for (
           const L
           of LAYERS
