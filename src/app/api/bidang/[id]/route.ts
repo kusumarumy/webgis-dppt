@@ -157,7 +157,7 @@ export async function GET(
           created_at
 
         FROM public.bidang_tanah
-        WHERE id = $1
+        WHERE fid = $1
       `,
       [id]
     );
@@ -255,7 +255,7 @@ export async function GET(
        ===================================================== */
 
     const bidang = {
-      id: String(b.id),
+      id: String(b.fid),
 
       kode:
         b.kode_bid ??
@@ -307,7 +307,7 @@ export async function GET(
       pemilik: b.nama_milik
         ? [
             {
-              id: String(b.id),
+              id: String(b.fid),
               urutan: 1,
               nama: b.nama_milik,
               ttl: b.ttl_milik,
@@ -662,7 +662,7 @@ export async function PATCH(
             fid,
             status
           FROM public.bidang_tanah
-          WHERE id = $1
+          WHERE fid = $1
         `,
         [id]
       );
@@ -759,7 +759,7 @@ export async function PATCH(
             `
               SELECT *
               FROM public.bidang_tanah
-              WHERE id = $1
+              WHERE fid = $1
               FOR UPDATE
             `,
             [id]
@@ -794,7 +794,7 @@ export async function PATCH(
           `
             UPDATE public.bidang_tanah
             SET ${set}
-            WHERE id = $1
+            WHERE fid = $1
           `,
           [
             id,
@@ -831,7 +831,7 @@ export async function PATCH(
                 jml_bgn,
                 status
               FROM public.bidang_tanah
-              WHERE id = $1
+              WHERE fid = $1
             `,
             [id]
           );
@@ -911,7 +911,7 @@ export async function PATCH(
                 SET
                   status = 'terkirim',
                   verif_at = NULL
-                WHERE id = $1
+                WHERE fid = $1
               `,
               [id]
             );
