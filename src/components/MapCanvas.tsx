@@ -1596,8 +1596,44 @@ el.innerHTML = `
             () => {
               setBangunanTerpilih(null);
 
+              // Gunakan feature.id sebagai ID utama bidang.
+              // Source GeoJSON menggunakan promoteId: 'id',
+              // sehingga f.id adalah ID yang dipakai MapLibre
+              // untuk feature-state dan identifikasi feature.
+              const bidangId =
+                f.id ?? p.id;
+
+              if (
+                bidangId === undefined ||
+                bidangId === null ||
+                bidangId === ''
+              ) {
+                console.error(
+                  'ID bidang tidak tersedia:',
+                  {
+                    featureId: f.id,
+                    propertyId: p.id,
+                    nib: p.nib,
+                    nama_milik: p.nama_milik,
+                    properties: p
+                  }
+                );
+
+                return;
+              }
+
+              console.log(
+                'BUKA KARTU BIDANG:',
+                {
+                  bidangId,
+                  featureId: f.id,
+                  propertyId: p.id,
+                  nib: p.nib
+                }
+              );
+
               pilihBidang(
-                p.id
+                bidangId
               );
 
               if (
