@@ -510,6 +510,8 @@ const data: Bidang[] =
       hitung(
         bidang,
         'kelurahan'
+      ).filter(
+        (item) => item.label !== 'Tidak diketahui'
       ),
     [bidang]
   );
