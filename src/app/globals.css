@@ -3535,13 +3535,7 @@ main.body {
   min-width: 0;
 }
 
-.terrain-panel-title {
-  font-size: 20px;
-  font-weight: 750;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: #174A7E;
-}
+
 
 .terrain-panel-subtitle {
   margin-top: 4px;
@@ -11419,13 +11413,14 @@ main.body {
   border-bottom: 1px solid var(--terrain-ui-line);
 }
 
-.search-title,
+.terrain-panel-title,
 .basemap-panel-title,
 .layer-panel-title,
-.statistik-title,
+.daftar-title strong, 
 .panel-kepemilikan .panel-title,
-.daftar-title,
-.filter-title {
+.statistik-title,
+.filter-title,
+.search-title {
   font-family: var(--terrain-ui-font);
   font-size: 20px;
   line-height: 1;
@@ -11433,16 +11428,7 @@ main.body {
   letter-spacing: -0.02em;
   color: var(--terrain-ui-title);
 }
-.daftar-title strong {
-  flex: 0 1 auto;
-  min-width: 0;
-  color: var(--terrain-ui-title);
-  font-family: var(--terrain-ui-font);
-  font-size: 20px;
-  font-weight: 750;
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-}
+
 .search-subtitle,
 .basemap-panel-subtitle,
 .statistik-subtitle,
