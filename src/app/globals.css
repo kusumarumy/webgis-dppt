@@ -493,7 +493,7 @@ main.body {
   position: fixed;
   left: 82px;
   top: 88px;
-  width: 330px;
+  width: 360px;
   max-height: calc(100vh - 120px);
   overflow: hidden;
   background: #ffffff;
@@ -617,14 +617,7 @@ main.body {
   min-width: 0;
 }
 
-.layer-panel-title {
-  font-size: 16px;
-  font-weight: 750;
-  line-height: 1.2;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: #174A7E;
-}
+
 
 .layer-panel-subtitle {
   margin-top: 3px;
@@ -3543,22 +3536,18 @@ main.body {
 }
 
 .terrain-panel-title {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 750;
   line-height: 1;
-
   letter-spacing: -0.02em;
-
   color: #174A7E;
 }
 
 .terrain-panel-subtitle {
   margin-top: 4px;
-
-  font-size: 10px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 700;
   line-height: 1;
-
   color: #71869a;
 }
 
@@ -3619,26 +3608,20 @@ main.body {
 
 .terrain-option-name {
   display: block;
-
   width: 100%;
-
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
   text-align: center;
-
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 750;
   line-height: 1.1;
 }
 
 .terrain-option-resolution {
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 650;
-
   line-height: 1;
-
   color: #8797a7;
 }
 
@@ -4405,30 +4388,6 @@ main.body {
   gap: 2px;
 
   overflow: hidden;
-}
-.daftar-title {
-  min-width: 0;
-
-  display: flex;
-  align-items: center;
-
-  gap: 7px;
-
-  line-height: 1;
-}
-
-.daftar-title strong {
-  flex: 0 1 auto;
-  min-width: 0;
-  color: var(--terrain-ui-title, #374151);
-  font-family: var(
-    --terrain-ui-font,
-    var(--f-body, Arial, sans-serif)
-  );
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  white-space: nowrap;
 }
 
 .daftar-count {
@@ -11231,13 +11190,7 @@ main.body {
 }
 
 
-.basemap-panel-title {
-  font-size: 16px;
-  font-weight: 750;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: #174A7E;
-}
+
 
 .basemap-panel-close {
   width: 28px;
@@ -11468,17 +11421,28 @@ main.body {
 
 .search-title,
 .basemap-panel-title,
+.layer-panel-title,
 .statistik-title,
 .panel-kepemilikan .panel-title,
+.daftar-title,
 .filter-title {
   font-family: var(--terrain-ui-font);
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1;
   font-weight: 750;
   letter-spacing: -0.02em;
   color: var(--terrain-ui-title);
 }
-
+.daftar-title strong {
+  flex: 0 1 auto;
+  min-width: 0;
+  color: var(--terrain-ui-title);
+  font-family: var(--terrain-ui-font);
+  font-size: 20px;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
 .search-subtitle,
 .basemap-panel-subtitle,
 .statistik-subtitle,
