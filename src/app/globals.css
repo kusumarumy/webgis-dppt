@@ -214,23 +214,15 @@ header.bar {
 
 .head-user {
   height: 54px;
-
   display: flex;
   align-items: center;
-
   gap: 14px;
-
   padding: 0 8px 0 14px;
-
   background: rgba(255, 255, 255, .96);
-
   border-radius: 9px;
-
   border: 1px solid #dbe1ea;
-
   box-shadow:
     0 2px 8px rgba(20, 30, 40, .06);
-
   flex: none;
 }
 
@@ -238,28 +230,20 @@ header.bar {
 .head-user-profile {
   display: flex;
   align-items: center;
-
   gap: 9px;
-
   min-width: 0;
 }
 
 .head-user-avatar {
   width: 34px;
   height: 34px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   flex: none;
-
   border-radius: 50%;
-
   background: #edf2f8;
-
   color: #294967;
-
   border: 1px solid #d9e1eb;
 }
 
@@ -270,80 +254,50 @@ header.bar {
 
 .head-user-info {
   display: flex;
-
   flex-direction: column;
   justify-content: center;
-
   min-width: 0;
 }
 
 .head-user-role {
   display: block;
-
   font-family: var(--f-disp);
-
   text-transform: uppercase;
-
   letter-spacing: .13em;
-
-  font-size: 7px;
-
+  font-size: 10px;
   line-height: 1;
-
   font-weight: 700;
-
   color: #9aa6b6;
 }
 
 .head-user-info strong {
   display: block;
-
   margin-top: 5px;
-
   font-family: var(--f-body);
-
   font-size: 12px;
-
   line-height: 1;
-
   font-weight: 700;
-
   color: #183451;
-
   white-space: nowrap;
 }
 
 .head-logout {
   height: 36px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   gap: 7px;
-
   padding: 0 12px;
-
   border: 1px solid #8f3030;
-
   border-radius: 6px;
-
   background: #8f3030;
-
   color: #fff;
-
   font-family: var(--f-disp);
-
   text-transform: uppercase;
-
   letter-spacing: .1em;
-
-  font-size: 8px;
-
+  font-size: 10px;
   font-weight: 800;
-
   cursor: pointer;
-
   transition:
     background .18s ease,
     border-color .18s ease,
@@ -358,37 +312,30 @@ header.bar {
 
 .head-logout:hover {
   background: #fff;
-
   border-color: #8f3030;
-
   color: #8f3030;
-
   transform: translateY(-1px);
 }
 
 .head-logout:active {
   transform: translateY(0);
 }
+
 main.body {
   width: 100%;
   height: 100%;
-
   min-width: 0;
   min-height: 0;
-
   display: block;
   position: relative;
-
   overflow: hidden;
 }
 
 .mapwrap {
   position: absolute;
   inset: 0;
-
   width: 100%;
   height: 100%;
-
   background: var(--mapbg);
 }
 .map-info {
@@ -1955,10 +1902,8 @@ main.body {
 
 .filter-result-total {
   margin-left: auto;
-
   color: #8AA0B2;
-
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .filter-modern-group {
@@ -2634,40 +2579,28 @@ main.body {
 .search-flyout {
   --search-red: #174A7E;
   --search-red-2: #245F91;
-
   --search-text: #334155;
   --search-text-2: #35556F;
   --search-muted: #8AA0B2;
-
   --search-bg: #ffffff;
   --search-soft: #F7FAFC;
   --search-line: #E1EAF1;
-
   position: absolute;
-
   top: 88px;
   left: 82px;
-
-  width: 330px;
+  width: 370px;
   height: 460px;
   max-height: calc(100vh - 140px);
-
   display: flex;
   flex-direction: column;
-
   background: var(--search-bg);
-
   border: 1px solid rgba(15, 23, 42, 0.08);
   border-radius: 13px;
-
   box-shadow:
     0 10px 25px rgba(15, 23, 42, 0.14),
     0 3px 8px rgba(15, 23, 42, 0.07);
-
   overflow: hidden;
-
   z-index: 30;
-
   animation: flyoutIn .18s ease-out;
 }
 
@@ -2702,25 +2635,18 @@ main.body {
 
 .search-reset {
   height: 28px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   padding: 0 8px;
-
   color: #607788;
   background: #fff;
-
   border: 1px solid #D9E4EE;
   border-radius: 8px;
-
   font-family: inherit;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
-
   cursor: pointer;
-
   transition:
     color .15s ease,
     background .15s ease,
@@ -2851,21 +2777,14 @@ main.body {
 .search-input-wrap input {
   width: 100%;
   height: 34px;
-
   box-sizing: border-box;
-
   padding: 0 32px;
-
   color: #35556F;
-
   background: #F7FAFC;
-
   border: 1px solid #D9E4EE;
   border-radius: 7px;
-
   outline: none;
-
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 500;
 }
 
@@ -2975,23 +2894,17 @@ main.body {
 
 .search-empty span {
   max-width: 230px;
-
   margin-top: 4px;
-
   color: #8AA0B2;
-
-  font-size: 8px;
+  font-size: 10px;
   line-height: 1.45;
 }
 
 .search-result-count {
   margin: 6px 2px 5px;
-
   color: #8AA0B2;
-
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 800;
-
   letter-spacing: .06em;
   text-transform: uppercase;
 }
@@ -3002,29 +2915,18 @@ main.body {
 
 .search-result-item {
   position: relative;
-
   width: 100%;
-
   display: flex;
   align-items: center;
-
   gap: 7px;
-
   padding: 8px;
-
   box-sizing: border-box;
-
   color: #35556F;
-
   background: #fff;
-
   border: 1px solid #D9E4EE;
   border-radius: 8px;
-
   text-align: left;
-
   cursor: pointer;
-
   transition:
     background .15s ease,
     border-color .15s ease;
@@ -3036,52 +2938,39 @@ main.body {
 
 .search-result-item:hover {
   background: #F3F8FC;
-
   border-color: #e9b8c4;
 }
 
 .search-result-main {
   min-width: 0;
   flex: 1;
-
   display: flex;
   flex-direction: column;
 }
 
 .search-result-main strong {
   overflow: hidden;
-
   color: #35556F;
-
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 800;
-
   line-height: 1.2;
-
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .search-result-main span {
   margin-top: 2px;
-
   overflow: hidden;
-
   color: #6C8195;
-
-  font-size: 8px;
-
+  font-size: 12px;
   line-height: 1.2;
-
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .search-result-location {
   flex: 0 0 auto;
-
   max-width: 75px;
-
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -3089,24 +2978,17 @@ main.body {
 
 .search-result-location span {
   max-width: 100%;
-
   overflow: hidden;
-
   color: #8AA0B2;
-
-  font-size: 7px;
-
+  font-size: 12px;
   line-height: 1.4;
-
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .search-result-arrow {
   flex: 0 0 auto;
-
   color: #174A7E;
-
   font-size: 13px;
   line-height: 1;
 }
@@ -4164,19 +4046,13 @@ main.body {
   scrollbar-color: #9ca3af #eef2f6;
 
   pointer-events: auto !important;
-
-  /* penting agar wheel mouse masuk ke area tabel */
   touch-action: pan-x pan-y;
 }
 
-
-/* Jangan mengunci scroll pada seluruh isi tabel */
 .daftar-table-wrap * {
   overscroll-behavior: contain;
 }
 
-
-/* Chrome / Edge */
 .daftar-table-wrap::-webkit-scrollbar {
   width: 12px;
   height: 12px;
@@ -4326,15 +4202,10 @@ main.body {
 
 .daftar-table .kode {
   color: #174A7E;
-
   font-family: var(--terrain-ui-font, var(--f-display, Arial, sans-serif));
-
-  font-size: 9px;
-
+  font-size: 12px;
   font-weight: 700;
-
   letter-spacing: 0.02em;
-
   font-variant-numeric: tabular-nums;
 }
 
@@ -4349,27 +4220,16 @@ main.body {
 .status-daftar {
   display: inline-flex;
   align-items: center;
-
   gap: 6px;
-
   min-height: 20px;
-
   padding: 2px 6px;
-
   border: 1px solid #E1EAF1;
-
   border-radius: 5px;
-
   background: #F7FAFC;
-
   color: #6C8195;
-
-  font-size: 8px;
-
+  font-size: 10px;
   font-weight: 800;
-
   letter-spacing: 0.035em;
-
   white-space: nowrap;
 }
 
@@ -4532,10 +4392,6 @@ main.body {
 
 .statistik-subtitle {
   margin-top: 3px;
-  color: #7b8ba1;
-  font-size: 8px;
-  font-weight: 500;
-  line-height: 1;
 }
 
 .statistik-close {
@@ -4764,10 +4620,8 @@ main.body {
 
 .stat-chart-popup-percent {
   grid-column: 1 / -1;
-
   color: #607788;
-
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 }
 
@@ -5417,7 +5271,6 @@ main.body {
   white-space: normal;
 }
 
-/* Subtitle */
 .panel-kepemilikan .panel-subtitle {
   margin-top: 4px;
 
@@ -5433,7 +5286,6 @@ main.body {
   text-overflow: ellipsis;
 }
 
-/* Tombol close */
 .panel-kepemilikan .panel-close {
   width: 28px;
   height: 28px;
@@ -5729,16 +5581,12 @@ main.body {
 
 .panel-kepemilikan .panel-error {
   margin-top: 7px;
-
   padding: 8px 9px;
-
   color: #174A7E;
   background: #F1F7FB;
-
   border: 1px solid #C9DCE9;
   border-radius: 7px;
-
-  font-size: 8px;
+  font-size: 10px;
   line-height: 1.4;
 }
 .panel-kepemilikan .form-group-header {
@@ -6040,7 +5888,7 @@ main.body {
 
   color: #7b8ba1;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 500;
 
   line-height: 1;
@@ -10496,7 +10344,7 @@ main.body {
   position: fixed;
   left: 82px;
   top: 88px;
-  width: 250px;
+  width: 270px;
   max-height: calc(100vh - 120px);
   overflow: hidden;
   background: #ffffff;
@@ -10692,15 +10540,11 @@ main.body {
 
 .basemap-card-label {
   min-width: 0;
-
   overflow: hidden;
-
   text-overflow: ellipsis;
   white-space: nowrap;
-
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 700;
-
   color: #435667;
 }
 
