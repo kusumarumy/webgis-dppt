@@ -309,10 +309,8 @@ useEffect(() => {
     const customEvent = event as CustomEvent<{
       id?: string | number;
     }>;
-
     const id = customEvent.detail?.id;
     const map = mapRef.current;
-
     if (
       id === undefined ||
       id === null ||
@@ -321,18 +319,14 @@ useEffect(() => {
     ) {
       return;
     }
-
     const currentRequest = ++requestId;
-
     const fokus = async () => {
       try {
-        // Tunggu style dan source bidang siap.
         if (!map.isStyleLoaded()) {
           await new Promise<void>((resolve) => {
             map.once('idle', () => resolve());
           });
         }
-
         if (
           currentRequest !== requestId ||
           mapRef.current !== map ||
@@ -341,62 +335,46 @@ useEffect(() => {
         ) {
           return;
         }
-
-        // Cari fitur yang sudah tersedia di source.
         const features = map.querySourceFeatures('bidang');
-
         let feature = features.find((f) =>
           String(f.properties?.fid ?? f.id) === String(id)
         );
-
-        // Jika belum tersedia, ambil data lengkap dari API.
         if (!feature) {
           const response = await fetch('/api/bidang');
-
           if (!response.ok) {
             throw new Error(
               `Gagal mengambil data bidang (${response.status}).`
             );
           }
-
           const geojson = await response.json();
-
           const kandidat = geojson.features?.find(
             (f: any) =>
               String(f.properties?.fid ?? f.id) === String(id)
           );
-
           if (!kandidat) {
             console.warn('Bidang tidak ditemukan:', id);
             return;
           }
-
           feature = kandidat;
         }
-if (
-  currentRequest !== requestId ||
-  mapRef.current !== map
-) {
-  return;
-}
-
-if (!feature) {
-  console.warn('Bidang tidak ditemukan:', id);
-  return;
-}
-const geometry = feature.geometry;
-
-
+      if (
+        currentRequest !== requestId ||
+        mapRef.current !== map
+      ) {
+        return;
+      }
+      if (!feature) {
+        console.warn('Bidang tidak ditemukan:', id);
+        return;
+      }
+      const geometry = feature.geometry;
         if (!geometry) {
           console.warn('Geometri bidang tidak tersedia:', id);
           return;
         }
-
         const bounds = new maplibregl.LngLatBounds();
-
         const tambahKoordinat = (coords: any): void => {
           if (!Array.isArray(coords)) return;
-
           if (
             coords.length >= 2 &&
             typeof coords[0] === 'number' &&
@@ -414,16 +392,13 @@ const geometry = feature.geometry;
             ]);
             return;
           }
-
           for (const coordinate of coords) {
             tambahKoordinat(coordinate);
           }
         };
-
         tambahKoordinat(
           (geometry as any).coordinates
         );
-
         if (bounds.isEmpty()) {
           console.warn(
             'Bounds bidang kosong atau koordinat tidak valid:',
@@ -431,34 +406,22 @@ const geometry = feature.geometry;
           );
           return;
         }
-
-        // Gunakan fid dari properti karena identitas bidang
-        // pada API dan feature-state harus konsisten.
         const fid = feature.properties?.fid ?? feature.id ?? id;
-
         sorot(map, fid);
-
-        // Buka kartu bidang melalui store yang sudah ada.
         pilihBidang(fid);
-
-        // Ukuran canvas aktual lebih aman daripada padding tetap.
         const canvas = map.getCanvas();
         const width = canvas.clientWidth;
         const height = canvas.clientHeight;
-
         if (width <= 0 || height <= 0) {
           console.warn('Ukuran canvas peta belum tersedia.');
           return;
         }
-
         const padding = {
           top: Math.min(70, height * 0.08),
           bottom: Math.min(60, height * 0.07),
           left: Math.min(80, width * 0.10),
           right: Math.min(60, width * 0.08),
         };
-
-        // Pastikan padding tidak menghabiskan ruang kamera.
         if (
           padding.left + padding.right >= width * 0.8 ||
           padding.top + padding.bottom >= height * 0.8
@@ -470,7 +433,6 @@ const geometry = feature.geometry;
           });
           return;
         }
-
         map.fitBounds(bounds, {
           padding,
           duration: 900,
@@ -483,15 +445,12 @@ const geometry = feature.geometry;
         );
       }
     };
-
     void fokus();
   };
-
   window.addEventListener(
     'fokus-bidang',
     handleFokusBidang
   );
-
   return () => {
     requestId++;
     window.removeEventListener(
@@ -500,7 +459,6 @@ const geometry = feature.geometry;
     );
   };
 }, [pilihBidang]);
-
 
   useEffect(() => {
     if (
@@ -1169,14 +1127,14 @@ map.addSource(
           source: 'bidang',
 
           paint: {
-'fill-color': [
-  'case',
-  ['boolean', ['feature-state', 'analisis'], false],
-  '#00E5FF',
-  ['boolean', ['feature-state', 'sel'], false],
-  '#FFD600',
-  '#8df2ff'
-],
+        'fill-color': [
+          'case',
+          ['boolean', ['feature-state', 'analisis'], false],
+          '#00E5FF',
+          ['boolean', ['feature-state', 'sel'], false],
+          '#FF1744',
+          '#8df2ff'
+        ],
 
             'fill-opacity': [
               'case',
@@ -1238,78 +1196,27 @@ map.addSource(
           source: 'bidang',
 
           paint: {
-            'line-color': [
-              'case',
-              [
-                'boolean',
-                [
-                  'feature-state',
-                  'analisis'
-                ],
-                false
-              ],
+          'line-color': [
+            'case',
+            ['boolean', ['feature-state', 'analisis'], false],
+            '#00E5FF',
+            ['boolean', ['feature-state', 'filter'], false],
+            '#FFFFFF',
+            ['boolean', ['feature-state', 'sel'], false],
+            '#FF1744',
+            'rgba(14,23,32,.45)'
+          ],
 
-              '#00E5FF',
-
-              // Filter
-              [
-                'boolean',
-                [
-                  'feature-state',
-                  'filter'
-                ],
-                false
-              ],
-
-              '#FFFFFF',
-              [
-                'boolean',
-                [
-                  'feature-state',
-                  'sel'
-                ],
-                false
-              ],
-
-              '#FFFFFF',
-              'rgba(14,23,32,.45)'
-            ],
-
-            'line-width': [
-              'case',
-              [
-                'boolean',
-                [
-                  'feature-state',
-                  'analisis'
-                ],
-                false
-              ],
-
-              2.5,
-              [
-                'boolean',
-                [
-                  'feature-state',
-                  'filter'
-                ],
-                false
-              ],
-
-              2.2,
-              [
-                'boolean',
-                [
-                  'feature-state',
-                  'sel'
-                ],
-                false
-              ],
-
-              3,
-              0.6
-            ],
-
+          'line-width': [
+            'case',
+            ['boolean', ['feature-state', 'analisis'], false],
+            2.5,
+            ['boolean', ['feature-state', 'filter'], false],
+            2.2,
+            ['boolean', ['feature-state', 'sel'], false],
+            3,
+            0.6
+          ],
             'line-opacity': [
               'case',
 
@@ -1422,8 +1329,6 @@ map.addSource(
           }
         });
 
-        // Bangunan berada di atas bidang tanah.
-        // Style layer lain tetap tidak diubah.
         posisikanBangunanDiAtasBidang(map);
 
         warnaiTema(map);
@@ -2968,39 +2873,22 @@ function warnaiTema(
       'bidang-ln'
     )
   ) {
-    map.setPaintProperty(
-      'bidang-ln',
-      'line-color',
-      [
-        'case',
-
-        [
-          'boolean',
-          [
-            'feature-state',
-            'analisis'
-          ],
-          false
-        ],
-
-        '#00E5FF',
-
-        [
-          'boolean',
-          [
-            'feature-state',
-            'sel'
-          ],
-          false
-        ],
-
-        '#A51F35',
-
-        gelap
-          ? 'rgba(14,23,32,.85)'
-          : 'rgba(30,39,51,.5)'
-      ]
-    );
+map.setPaintProperty(
+  'bidang-ln',
+  'line-color',
+  [
+    'case',
+    ['boolean', ['feature-state', 'analisis'], false],
+    '#00E5FF',
+    ['boolean', ['feature-state', 'filter'], false],
+    '#FFFFFF',
+    ['boolean', ['feature-state', 'sel'], false],
+    '#FF1744',
+    gelap
+      ? 'rgba(14,23,32,.85)'
+      : 'rgba(30,39,51,.5)'
+  ]
+);
   }
 
   if (
