@@ -373,15 +373,19 @@ useEffect(() => {
 
           feature = kandidat;
         }
+if (
+  currentRequest !== requestId ||
+  mapRef.current !== map
+) {
+  return;
+}
 
-        if (
-          currentRequest !== requestId ||
-          mapRef.current !== map
-        ) {
-          return;
-        }
+if (!feature) {
+  console.warn('Bidang tidak ditemukan:', id);
+  return;
+}
+const geometry = feature.geometry;
 
-        const geometry = feature.geometry;
 
         if (!geometry) {
           console.warn('Geometri bidang tidak tersedia:', id);
