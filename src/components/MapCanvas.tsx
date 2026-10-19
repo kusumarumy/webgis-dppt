@@ -1619,38 +1619,38 @@ el.innerHTML = `
     );
   }
 
-  function sorot(
-    map: MLMap,
-    fid: string | number
+
+function sorot(
+  map: MLMap,
+  fid: string | number
+) {
+  const fidSebelumnya = terpilihRef.current;
+  if (
+    fidSebelumnya !== null &&
+    String(fidSebelumnya) !== String(fid)
   ) {
-    if (
-      terpilihRef.current = fid;
-      map.setFeatureState(
-        {
-          source: 'bidang',
-          id: fid
-        },
-        {
-          sel: true,
-          analisis: false
-        }
-      );
-    }
-
-    terpilihRef.current =
-      fid;
-
     map.setFeatureState(
       {
         source: 'bidang',
-
-        id: fid
+        id: fidSebelumnya
       },
       {
-        sel: true
+        sel: false
       }
     );
   }
+  terpilihRef.current = fid;
+  map.setFeatureState(
+    {
+      source: 'bidang',
+      id: fid
+    },
+    {
+      sel: true,
+      analisis: false
+    }
+  );
+}
 
 useEffect(() => {
   const map = mapRef.current;
