@@ -1,3 +1,4 @@
+
 import { NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { query } from '@/lib/db';
@@ -16,7 +17,6 @@ export async function GET(
 
   try {
     const { nama } = await params;
-
     const namaBersih = nama?.trim();
 
     if (!namaBersih) {
@@ -27,46 +27,42 @@ export async function GET(
     }
 
     const bidang = await query<{
-      id: string;
+      id: string | number;
+      fid: string | number | null;
       nib: string | null;
-
       nama_milik: string | null;
       nik_milik: string | null;
-
       nama_sewa: string | null;
       nik_sewa: string | null;
-
       kecamatan: string | null;
       kelurahan: string | null;
-
       luas_tnh: number | null;
       luas_terdampak_m2: number | null;
       luas_sisa_m2: number | null;
-
       dampak_tnh: string | null;
       penggunaan: string | null;
       sta_tnh: string | null;
     }>(
       `
-SELECT
-  id,
-  fid,
-  nib,
-  nama_milik,
-  nik_milik,
-  NULL::varchar AS nama_sewa,
-  NULL::varchar AS nik_sewa,
-  kecamatan,
-  kelurahan,
-  luas_tnh,
-  l_dampak AS luas_terdampak_m2,
-  l_sisa AS luas_sisa_m2,
-  dampak_tnh,
-  penggunaan,
-  sta_tnh
-FROM public.bidang_tanah
-WHERE TRIM(nama_milik) = $1
-ORDER BY nib ASC
+      SELECT
+        id,
+        fid,
+        nib,
+        nama_milik,
+        nik_milik,
+        NULL::varchar AS nama_sewa,
+        NULL::varchar AS nik_sewa,
+        kecamatan,
+        kelurahan,
+        luas_tnh,
+        l_dampak AS luas_terdampak_m2,
+        l_sisa AS luas_sisa_m2,
+        dampak_tnh,
+        penggunaan,
+        sta_tnh
+      FROM public.bidang_tanah
+      WHERE TRIM(nama_milik) = $1
+      ORDER BY nib ASC
       `,
       [namaBersih]
     );
@@ -89,17 +85,14 @@ ORDER BY nib ASC
       0
     );
 
-    const jumlahBidangTerdampak =
-      bidang.filter(
-        (b) =>
-          Number(b.luas_terdampak_m2) > 0
-      ).length;
+    const jumlahBidangTerdampak = bidang.filter(
+      (b) => Number(b.luas_terdampak_m2) > 0
+    ).length;
 
     return NextResponse.json({
       pemilik: {
         nama: namaBersih,
       },
-
       ringkasan: {
         jumlahBidang: bidang.length,
         totalLuas,
@@ -107,10 +100,8 @@ ORDER BY nib ASC
         totalLuasSisa,
         jumlahBidangTerdampak,
       },
-
       bidang,
     });
-
   } catch (error) {
     console.error(
       'GET /api/analisis/kepemilikan/[nama] ERROR:',
@@ -124,9 +115,7 @@ ORDER BY nib ASC
             ? error.message
             : String(error),
       },
-      {
-        status: 500,
-      }
+      { status: 500 }
     );
   }
 }
