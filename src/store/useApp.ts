@@ -87,7 +87,7 @@ interface AppState {
 export const useApp = create<AppState>(
   (set, get) => ({
     tema: 'auto',
-    basemap: 'esri-streets',
+    basemap: 'google-streets',
     dtm: 'off',
     exag: 1.8,
     pewarnaan: 'penggunaan',
