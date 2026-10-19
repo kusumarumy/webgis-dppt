@@ -2161,8 +2161,7 @@ main.body {
 
 .filter-dropdown-head span {
   color: #35556F;
-
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -2205,22 +2204,14 @@ main.body {
 
 .filter-option {
   width: 100%;
-
   display: flex;
   align-items: center;
-
   gap: 7px;
-
   padding: 7px;
-
   border: 0;
-
   border-radius: 6px;
-
   background: transparent;
-
   text-align: left;
-
   cursor: pointer;
 }
 
@@ -2268,15 +2259,10 @@ main.body {
 
 .filter-option-name {
   min-width: 0;
-
   overflow: hidden;
-
   color: #35556F;
-
-  font-size: 8px;
-
+  font-size: 11px;
   white-space: nowrap;
-
   text-overflow: ellipsis;
 }
 
@@ -2458,22 +2444,14 @@ main.body {
 
 .filter-reset {
   flex: 0 0 70px;
-
   height: 34px;
-
   border: 1px solid #d7dee5;
-
   border-radius: 8px;
-
   background: #fff;
-
   color: #607788;
-
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
-
   cursor: pointer;
-
   transition:
     background 0.12s,
     border-color 0.12s;
@@ -2487,38 +2465,24 @@ main.body {
 
 .filter-apply {
   flex: 1;
-
   height: 34px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   gap: 5px;
-
   border: 0;
-
   border-radius: 8px;
-
-  background: #174A7E;
-
-  color: #fff;
-
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
-
   cursor: pointer;
-
   box-shadow:
     0 4px 10px rgba(159, 18, 57, 0.18);
-
   transition:
     background 0.12s,
     transform 0.12s;
-}
-
-.filter-apply:hover {
-  background: #881337;
+  background: #1769A8 !important;
+  border-color: #1769A8 !important;
+  color: #FFFFFF !important;
 }
 
 .filter-apply:active {
@@ -2528,6 +2492,25 @@ main.body {
 .filter-apply svg {
   width: 13px;
   height: 13px;
+}
+
+.filter-apply:hover {
+  background: #125487 !important;
+}
+.filter-reset {
+  height: 32px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  flex: 1;
+  color: #607788;
+  background: #F7FAFC;
+  border: 1px solid #D9E4EE;
+}
+
+.filter-reset:hover {
+  background: #f1f5f9;
 }
 
 .filter-loading {
@@ -2954,16 +2937,13 @@ main.body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   min-height: 180px;
-
   text-align: center;
 }
 
 .search-loading {
   color: #8AA0B2;
-
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .search-empty-icon {
@@ -5220,12 +5200,9 @@ main.body {
 .statistik-loading span {
   width: 10px;
   height: 10px;
-
   border: 2px solid #E1EAF1;
   border-top-color: var(--stat-red);
-
   border-radius: 50%;
-
   animation: stat-spin .7s linear infinite;
 }
 
@@ -5592,7 +5569,7 @@ main.body {
 
 .panel-kepemilikan .analysis-section-title span {
   color: #8AA0B2;
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 }
 
@@ -5747,27 +5724,20 @@ main.body {
 
 .panel-kepemilikan .analysis-reset {
   flex: 0 0 auto;
-
   height: 24px;
   padding: 0 9px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 3px;
-
   color: #607788;
   background: #fff;
-
   border: 1px solid #d7dee8;
   border-radius: 7px;
-
   font-family: inherit;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 700;
-
   cursor: pointer;
-
   transition:
     color .15s ease,
     background .15s ease,
@@ -6178,47 +6148,6 @@ main.body {
 
   margin-top: 7px;
 }
-
-.filter-reset,
-.filter-apply {
-  height: 32px;
-
-  border-radius: 7px;
-
-  font-size: 9px;
-  font-weight: 800;
-
-  cursor: pointer;
-}
-
-.filter-reset {
-  flex: 1;
-
-  color: #607788;
-
-  background: #F7FAFC;
-
-  border: 1px solid #D9E4EE;
-}
-
-.filter-reset:hover {
-  background: #f1f5f9;
-}
-
-.filter-apply {
-  flex: 1;
-
-  color: #fff;
-
-  background: #174A7E;
-
-  border: 1px solid #174A7E;
-}
-
-.filter-apply:hover {
-  background: #881337;
-}
-
 
 
 @media (max-width: 900px) {
@@ -8422,9 +8351,6 @@ main.body {
 .kb-photo-card.is-loading {
   opacity: 0.7;
 }
-
-
-/* ---------- FOTO MAIN ---------- */
 
 .kb-photo-main {
   display: block;
@@ -11611,15 +11537,6 @@ a:hover {
   color: #1769A8 !important;
 }
 
-.filter-apply {
-  background: #1769A8 !important;
-  border-color: #1769A8 !important;
-  color: #FFFFFF !important;
-}
-
-.filter-apply:hover {
-  background: #125487 !important;
-}
 
 .status-danger,
 .status-rejected,
