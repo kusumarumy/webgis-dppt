@@ -301,149 +301,202 @@ const {
     };
   }, []);
 
-  useEffect(() => {
-    const handleFokusBidang = (
-      event: Event
-    ) => {
-      const customEvent =
-        event as CustomEvent<{
-          id?: string | number;
-        }>;
-      const id =
-        customEvent.detail?.id;
-      const map =
-        mapRef.current;
-      if (
-        id === undefined ||
-        !map
-      ) {
-        return;
-      }
-      const fokus = () => {
+
+useEffect(() => {
+  let requestId = 0;
+
+  const handleFokusBidang = (event: Event) => {
+    const customEvent = event as CustomEvent<{
+      id?: string | number;
+    }>;
+
+    const id = customEvent.detail?.id;
+    const map = mapRef.current;
+
+    if (
+      id === undefined ||
+      id === null ||
+      id === '' ||
+      !map
+    ) {
+      return;
+    }
+
+    const currentRequest = ++requestId;
+
+    const fokus = async () => {
+      try {
+        // Tunggu style dan source bidang siap.
         if (!map.isStyleLoaded()) {
+          await new Promise<void>((resolve) => {
+            map.once('idle', () => resolve());
+          });
+        }
+
+        if (
+          currentRequest !== requestId ||
+          mapRef.current !== map ||
+          !map.isStyleLoaded() ||
+          !map.getSource('bidang')
+        ) {
           return;
         }
-        if (!map.getSource('bidang')) {
-          return;
-        }
-        const features =
-          map.querySourceFeatures(
-            'bidang'
-          );
-        const feature =
-          features.find(
-            (f) =>
-              String(f.id) ===
-              String(id)
-          );
+
+        // Cari fitur yang sudah tersedia di source.
+        const features = map.querySourceFeatures('bidang');
+
+        let feature = features.find((f) =>
+          String(f.properties?.fid ?? f.id) === String(id)
+        );
+
+        // Jika belum tersedia, ambil data lengkap dari API.
         if (!feature) {
+          const response = await fetch('/api/bidang');
+
+          if (!response.ok) {
+            throw new Error(
+              `Gagal mengambil data bidang (${response.status}).`
+            );
+          }
+
+          const geojson = await response.json();
+
+          const kandidat = geojson.features?.find(
+            (f: any) =>
+              String(f.properties?.fid ?? f.id) === String(id)
+          );
+
+          if (!kandidat) {
+            console.warn('Bidang tidak ditemukan:', id);
+            return;
+          }
+
+          feature = kandidat;
+        }
+
+        if (
+          currentRequest !== requestId ||
+          mapRef.current !== map
+        ) {
+          return;
+        }
+
+        const geometry = feature.geometry;
+
+        if (!geometry) {
+          console.warn('Geometri bidang tidak tersedia:', id);
+          return;
+        }
+
+        const bounds = new maplibregl.LngLatBounds();
+
+        const tambahKoordinat = (coords: any): void => {
+          if (!Array.isArray(coords)) return;
+
+          if (
+            coords.length >= 2 &&
+            typeof coords[0] === 'number' &&
+            typeof coords[1] === 'number' &&
+            Number.isFinite(coords[0]) &&
+            Number.isFinite(coords[1]) &&
+            coords[0] >= -180 &&
+            coords[0] <= 180 &&
+            coords[1] >= -90 &&
+            coords[1] <= 90
+          ) {
+            bounds.extend([
+              coords[0],
+              coords[1],
+            ]);
+            return;
+          }
+
+          for (const coordinate of coords) {
+            tambahKoordinat(coordinate);
+          }
+        };
+
+        tambahKoordinat(
+          (geometry as any).coordinates
+        );
+
+        if (bounds.isEmpty()) {
           console.warn(
-            'Bidang tidak ditemukan di source:',
+            'Bounds bidang kosong atau koordinat tidak valid:',
             id
           );
           return;
         }
-        if (
-          feature.id !== undefined
-        ) {
-          sorot(
-            map,
-            feature.id
-          );
-        }
 
-        const bounds =
-          new maplibregl.LngLatBounds();
+        // Gunakan fid dari properti karena identitas bidang
+        // pada API dan feature-state harus konsisten.
+        const fid = feature.properties?.fid ?? feature.id ?? id;
 
-        const tambahKoordinat = (
-          coords: any
-        ) => {
-          if (
-            !Array.isArray(coords)
-          ) {
-            return;
-          }
+        sorot(map, fid);
 
-          if (
-            coords.length >= 2 &&
-            typeof coords[0] ===
-              'number' &&
-            typeof coords[1] ===
-              'number'
-          ) {
-            bounds.extend(
-              coords as [
-                number,
-                number
-              ]
-            );
+        // Buka kartu bidang melalui store yang sudah ada.
+        pilihBidang(fid);
 
-            return;
-          }
+        // Ukuran canvas aktual lebih aman daripada padding tetap.
+        const canvas = map.getCanvas();
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
 
-          for (
-            const c of coords
-          ) {
-            tambahKoordinat(c);
-          }
-        };
-
-        const geometry =
-          feature.geometry as any;
-
-        if (
-          geometry?.coordinates
-        ) {
-          tambahKoordinat(
-            geometry.coordinates
-          );
-        }
-
-        if (
-          bounds.isEmpty()
-        ) {
+        if (width <= 0 || height <= 0) {
+          console.warn('Ukuran canvas peta belum tersedia.');
           return;
         }
 
-        map.fitBounds(
-          bounds,
-          {
-            padding: {
-              top: 170,
-              bottom: 120,
-              left: 470,
-              right: 430
-            },
-            duration: 900,
-            maxZoom: 18
-          }
-        );
-      };
+        const padding = {
+          top: Math.min(70, height * 0.08),
+          bottom: Math.min(60, height * 0.07),
+          left: Math.min(80, width * 0.10),
+          right: Math.min(60, width * 0.08),
+        };
 
-      if (
-        map.isStyleLoaded()
-      ) {
-        fokus();
-      } else {
-        map.once(
-          'load',
-          fokus
+        // Pastikan padding tidak menghabiskan ruang kamera.
+        if (
+          padding.left + padding.right >= width * 0.8 ||
+          padding.top + padding.bottom >= height * 0.8
+        ) {
+          map.easeTo({
+            center: bounds.getCenter(),
+            zoom: 17,
+            duration: 900,
+          });
+          return;
+        }
+
+        map.fitBounds(bounds, {
+          padding,
+          duration: 900,
+          maxZoom: 18,
+        });
+      } catch (error) {
+        console.error(
+          'Gagal memfokuskan bidang:',
+          error
         );
       }
     };
 
-    window.addEventListener(
+    void fokus();
+  };
+
+  window.addEventListener(
+    'fokus-bidang',
+    handleFokusBidang
+  );
+
+  return () => {
+    requestId++;
+    window.removeEventListener(
       'fokus-bidang',
       handleFokusBidang
     );
+  };
+}, [pilihBidang]);
 
-    return () => {
-      window.removeEventListener(
-        'fokus-bidang',
-        handleFokusBidang
-      );
-    };
-  }, []);
 
   useEffect(() => {
     if (
@@ -547,8 +600,6 @@ if (DTM.aws) {
     maxzoom: 15
   };
 }
-
-
     const layersAwal: any[] = [
       {
         id: 'bg',
