@@ -1126,64 +1126,29 @@ map.addSource(
 
           source: 'bidang',
 
-          paint: {
-        'fill-color': [
-          'case',
-          ['boolean', ['feature-state', 'analisis'], false],
-          '#00E5FF',
-          ['boolean', ['feature-state', 'sel'], false],
-          '#FF1744',
-          '#8df2ff'
-        ],
-
-            'fill-opacity': [
-              'case',
-
-              [
-                'boolean',
-                [
-                  'feature-state',
-                  'analisis'
-                ],
-                false
-              ],
-
-              0.88,
-
-              [
-                'boolean',
-                [
-                  'feature-state',
-                  'filter'
-                ],
-                false
-              ],
-
-              0.92,
-
-              [
-                'boolean',
-                [
-                  'feature-state',
-                  'sel'
-                ],
-                false
-              ],
-
-              0.95,
-              [
-                'boolean',
-                [
-                  'feature-state',
-                  'hov'
-                ],
-                false
-              ],
-
-              0.74,
-              0.90
-            ]
-          }
+        paint: {
+          'fill-color': [
+            'case',
+            ['boolean', ['feature-state', 'sel'], false],
+            '#FF1744',
+            ['boolean', ['feature-state', 'analisis'], false],
+            '#00E5FF',
+            '#8df2ff'
+          ],
+        
+          'fill-opacity': [
+            'case',
+            ['boolean', ['feature-state', 'sel'], false],
+            0.95,
+            ['boolean', ['feature-state', 'analisis'], false],
+            0.88,
+            ['boolean', ['feature-state', 'filter'], false],
+            0.92,
+            ['boolean', ['feature-state', 'hov'], false],
+            0.74,
+            0.90
+          ]
+        }
         });
 
         posisikanTraseDiBawahLayerData(map);
@@ -1659,18 +1624,15 @@ el.innerHTML = `
     fid: string | number
   ) {
     if (
-      terpilihRef.current !==
-      null
-    ) {
+      terpilihRef.current = fid;
       map.setFeatureState(
         {
           source: 'bidang',
-
-          id:
-            terpilihRef.current
+          id: fid
         },
         {
-          sel: false
+          sel: true,
+          analisis: false
         }
       );
     }
