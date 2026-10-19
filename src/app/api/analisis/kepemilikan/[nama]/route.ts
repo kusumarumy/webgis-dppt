@@ -48,31 +48,25 @@ export async function GET(
       sta_tnh: string | null;
     }>(
       `
-      SELECT
-        id,
-        fid,
-        nib,
-
-        nama_milik,
-        nik_milik,
-
-        NULL::varchar AS nama_sewa,
-        NULL::varchar AS nik_sewa,
-
-        kecamatan,
-        kelurahan,
-
-        luas_tnh,
-
-        l_dampak AS luas_terdampak_m2,
-        l_sisa AS luas_sisa_m2,
-
-        dampak_tnh,
-        penggunaan,
-        sta_tnh
-      FROM public.bidang_tanah
-      WHERE TRIM(nama_milik) = $1
-      ORDER BY nib ASC
+SELECT
+  id,
+  fid,
+  nib,
+  nama_milik,
+  nik_milik,
+  NULL::varchar AS nama_sewa,
+  NULL::varchar AS nik_sewa,
+  kecamatan,
+  kelurahan,
+  luas_tnh,
+  l_dampak AS luas_terdampak_m2,
+  l_sisa AS luas_sisa_m2,
+  dampak_tnh,
+  penggunaan,
+  sta_tnh
+FROM public.bidang_tanah
+WHERE TRIM(nama_milik) = $1
+ORDER BY nib ASC
       `,
       [namaBersih]
     );
