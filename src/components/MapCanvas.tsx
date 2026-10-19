@@ -89,8 +89,16 @@ const orthoRequestRef =
   useRef(0);
   const [bangunanTerpilih, setBangunanTerpilih] =
     useState<Record<string, any> | null>(null);
+  const autoOrthoRef = useRef(false);
+
+const basemapSebelumAutoRef =
+  useRef<Basemap | null>(null);
+
+const basemapOtomatisTujuanRef =
+  useRef<Basemap | null>(null);
 const {
   basemap,
+  setBasemap,
   dtm,
   layerAktif,
   tema,
@@ -1943,6 +1951,65 @@ useEffect(() => {
   };
 }, [basemap]);
   
+useEffect(() => {
+  const map = mapRef.current;
+
+  if (!map) {
+    return;
+  }
+
+  const ZOOM_MASUK_ORTHO = 17.5;
+  const ZOOM_KEMBALI = 17.0;
+
+  const handleZoomEnd = () => {
+    const zoom = map.getZoom();
+    if (
+      !autoOrthoRef.current &&
+      basemap === 'esri' &&
+      zoom >= ZOOM_MASUK_ORTHO
+    ) {
+      autoOrthoRef.current = true;
+      basemapSebelumAutoRef.current = basemap;
+      basemapOtomatisTujuanRef.current = 'ortho';
+
+      setBasemap('ortho');
+      return;
+    }
+    if (
+      autoOrthoRef.current &&
+      zoom <= ZOOM_KEMBALI
+    ) {
+      const basemapKembali =
+        basemapSebelumAutoRef.current ?? 'esri';
+
+      autoOrthoRef.current = false;
+      basemapSebelumAutoRef.current = null;
+      basemapOtomatisTujuanRef.current = basemapKembali;
+
+      setBasemap(basemapKembali);
+    }
+  };
+
+  map.on('zoomend', handleZoomEnd);
+
+  return () => {
+    map.off('zoomend', handleZoomEnd);
+  };
+}, [basemap, setBasemap]);
+
+useEffect(() => {
+  if (basemapOtomatisTujuanRef.current === basemap) {
+    basemapOtomatisTujuanRef.current = null;
+    return;
+  }
+  if (
+    autoOrthoRef.current &&
+    basemap !== 'ortho'
+  ) {
+    autoOrthoRef.current = false;
+    basemapSebelumAutoRef.current = null;
+  }
+}, [basemap]);
   useEffect(() => {
     const map =
       mapRef.current;
