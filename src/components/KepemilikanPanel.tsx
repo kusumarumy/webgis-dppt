@@ -9,6 +9,7 @@ type Pemilik = {
 
 type BidangKepemilikan = {
   id: number;
+  fid: string | number | null;
   bidang_id: string | null;
   nib: string | null;
 
@@ -169,22 +170,22 @@ export default function KepemilikanPanel({
     };
   }, [namaAktif]);
 
-  useEffect(() => {
-    const ids = bidang
-      .map((b) => b.id)
-      .filter(
-        (id): id is number =>
-          typeof id === 'number'
-      );
-
-    window.dispatchEvent(
-      new CustomEvent('analisis-bidang', {
-        detail: {
-          ids,
-        },
-      })
+useEffect(() => {
+  const ids = bidang
+    .map((b) => b.fid)
+    .filter(
+      (id): id is string | number =>
+        id !== null &&
+        id !== undefined &&
+        id !== ''
     );
-  }, [bidang]);
+
+  window.dispatchEvent(
+    new CustomEvent('analisis-bidang', {
+      detail: { ids },
+    })
+  );
+}, [bidang]);
 
   useEffect(() => {
     return () => {
@@ -249,15 +250,17 @@ export default function KepemilikanPanel({
     }).format(value);
   }
 
-  function fokusBidang(id: number) {
-    window.dispatchEvent(
-      new CustomEvent('fokus-bidang', {
-        detail: {
-          id,
-        },
-      })
-    );
-  }
+function fokusBidang(
+  fid: string | number | null
+) {
+  if (fid === null || fid === '') return;
+
+  window.dispatchEvent(
+    new CustomEvent('fokus-bidang', {
+      detail: { id: fid },
+    })
+  );
+}
 
 function resetAnalisis() {
   window.dispatchEvent(
@@ -513,9 +516,7 @@ function resetAnalisis() {
                     key={b.id}
                     type="button"
                     className="analysis-field"
-                    onClick={() =>
-                      fokusBidang(b.id)
-                    }
+                    onClick={() => fokusBidang(b.fid)}
                   >
                     <div className="analysis-field-top">
                       <strong>
