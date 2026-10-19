@@ -808,11 +808,6 @@ main.body {
   font-weight: 700;
 }
 
-
-/* =========================================================
-   LAYER LIST
-   ========================================================= */
-
 .layer-list {
   padding: 3px 7px 7px;
 
@@ -820,11 +815,6 @@ main.body {
 
   background: #F7FAFC;
 }
-
-
-/* =========================================================
-   LAYER ITEM
-   ========================================================= */
 
 .layer-item {
   border-radius: 7px;
@@ -834,28 +824,16 @@ main.body {
   margin-top: 2px;
 }
 
-
-/* =========================================================
-   LAYER ROW
-   ========================================================= */
-
 .layer-row {
   position: relative;
-
   min-height: 34px;
-
   display: flex;
   align-items: center;
   gap: 8px;
-
   padding: 0 7px;
-
   border-radius: 7px;
-
   cursor: pointer;
-
   color: #5d6976;
-
   transition:
     background .15s ease,
     color .15s ease;
@@ -870,11 +848,6 @@ main.body {
 
   color: #343d46;
 }
-
-
-/* =========================================================
-   CUSTOM CHECKBOX
-   ========================================================= */
 
 .layer-row input {
   position: absolute;
@@ -915,60 +888,35 @@ main.body {
 .layer-row input:checked + .gis-check {
   background: var(--layer-accent);
   border-color: var(--layer-accent);
-
   color: #fff;
 }
-
-
-/* =========================================================
-   LAYER SWATCH
-   ========================================================= */
 
 .layer-swatch {
   width: 13px;
   height: 13px;
-
   flex: 0 0 13px;
-
   border-radius: 4px;
-
   border: 1px solid rgba(0, 0, 0, .08);
 }
 
 .layer-swatch.line {
   height: 0;
-
   border: 0;
   border-top-width: 3px;
   border-top-style: solid;
-
   border-radius: 0;
-
   background: transparent !important;
 }
 
-
-/* =========================================================
-   LAYER NAME
-   ========================================================= */
-
 .layer-name {
   min-width: 0;
-
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
   font-size: 10px;
   font-weight: 600;
-
   color: inherit;
 }
-
-
-/* =========================================================
-   TAMPILAN BIDANG
-   ========================================================= */
 
 .layer-properties {
   margin: 2px 7px 7px;
@@ -1005,21 +953,12 @@ main.body {
   color: #5f6b76;
 }
 
-
-/* =========================================================
-   PEWARNAAN BIDANG
-   ========================================================= */
-
 .style-segment {
   display: grid;
   grid-template-columns: 1fr 1fr;
-
   gap: 2px;
-
   padding: 2px;
-
   background: #f2f4f6;
-
   border: 1px solid #e3e7eb;
   border-radius: 7px;
 }
@@ -1060,11 +999,6 @@ main.body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, .07);
 }
 
-
-/* =========================================================
-   LABEL
-   ========================================================= */
-
 .option-row {
   min-height: 29px;
 
@@ -1085,11 +1019,6 @@ main.body {
   opacity: 0;
   pointer-events: none;
 }
-
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
 
 .panel-footer {
   height: 30px;
@@ -1190,10 +1119,6 @@ main.body {
   transform: rotate(90deg);
 }
 
-/* =========================================================
-   GROUP ICON
-   ========================================================= */
-
 .group-icon {
   width: 20px;
   height: 20px;
@@ -1211,11 +1136,6 @@ main.body {
   font-size: 10px;
   font-weight: 700;
 }
-
-
-/* =========================================================
-   GROUP TITLE
-   ========================================================= */
 
 .layer-group-title {
   overflow: hidden;
@@ -1237,11 +1157,6 @@ main.body {
   padding: 1px 0 7px 24px;
 }
 
-
-/* =========================================================
-   LAYER ITEM
-   ========================================================= */
-
 .layer-item {
   border-radius: 7px;
 
@@ -1255,11 +1170,6 @@ main.body {
 .layer-item.active {
   background: var(--layer-active);
 }
-
-
-/* =========================================================
-   LAYER ROW
-   ========================================================= */
 
 .layer-row {
   min-height: 36px;
@@ -1275,11 +1185,6 @@ main.body {
   user-select: none;
 }
 
-
-/* =========================================================
-   NATIVE CHECKBOX
-   ========================================================= */
-
 .layer-row input[type="checkbox"] {
   position: absolute;
 
@@ -1289,11 +1194,6 @@ main.body {
   opacity: 0;
   pointer-events: none;
 }
-
-
-/* =========================================================
-   GIS CHECKBOX
-   ========================================================= */
 
 .gis-check {
   width: 17px;
@@ -1327,11 +1227,6 @@ main.body {
   color: #ffffff;
 }
 
-
-/* =========================================================
-   COLOR SWATCH
-   ========================================================= */
-
 .layer-swatch {
   width: 16px;
   height: 16px;
@@ -1361,11 +1256,6 @@ main.body {
   background: transparent !important;
 }
 
-
-/* =========================================================
-   LAYER NAME
-   ========================================================= */
-
 .layer-name {
   min-width: 0;
 
@@ -1384,11 +1274,6 @@ main.body {
   color: #263238;
   font-weight: 500;
 }
-
-
-/* =========================================================
-   PROPERTY PANEL
-   ========================================================= */
 
 .layer-properties {
   margin: 2px 8px 9px 33px;
@@ -1434,11 +1319,6 @@ main.body {
   background: var(--layer-border);
 }
 
-
-/* =========================================================
-   STATUS / PENGGUNAAN
-   ========================================================= */
-
 .style-segment {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1478,11 +1358,6 @@ main.body {
   color: #6675d8;
 }
 
-
-/* =========================================================
-   OPTION ROW
-   ========================================================= */
-
 .option-row {
   display: flex;
   align-items: center;
@@ -1502,9 +1377,6 @@ main.body {
 
   flex-basis: 16px;
 }
-/* =========================================================
-   LAYER MANAGER
-   ========================================================= */
 
 .layer-groups {
   padding: 0 0 4px;
@@ -1626,11 +1498,6 @@ main.body {
   font-weight: 650;
 }
 
-
-/* =========================================================
-   LAYER PROPERTIES — BIDANG TANAH
-   ========================================================= */
-
 .layer-properties {
   margin: 1px 6px 11px 34px;
 
@@ -1641,9 +1508,6 @@ main.body {
 
   background: #F7FAFC;
 }
-
-
-/* title */
 
 .property-title {
   margin-bottom: 9px;
@@ -1656,9 +1520,6 @@ main.body {
   letter-spacing: .12em;
 }
 
-
-/* label */
-
 .property-label {
   margin-bottom: 6px;
 
@@ -1667,11 +1528,6 @@ main.body {
   font-size: 9px;
   font-weight: 600;
 }
-
-
-/* =========================================================
-   SEGMENT CONTROL
-   ========================================================= */
 
 .style-segment {
   height: 32px;
@@ -1714,11 +1570,6 @@ main.body {
   box-shadow:
     0 1px 4px rgba(35, 52, 70, .12);
 }
-
-
-/* =========================================================
-   LABEL OPTION
-   ========================================================= */
 
 .label-block {
   margin-top: 10px;
@@ -2066,11 +1917,6 @@ main.body {
   color: #174A7E;
 }
 
-
-/* =========================================================
-   BODY
-   ========================================================= */
-
 .filter-body {
   flex: 1;
 
@@ -2094,11 +1940,6 @@ main.body {
 
   border-radius: 10px;
 }
-
-
-/* =========================================================
-   RESULT CARD
-   ========================================================= */
 
 .filter-result-card {
   display: flex;
@@ -2172,11 +2013,6 @@ main.body {
   font-size: 10px;
 }
 
-
-/* =========================================================
-   FILTER GROUP
-   ========================================================= */
-
 .filter-modern-group {
   margin-bottom: 9px;
 }
@@ -2216,11 +2052,6 @@ main.body {
 .filter-clear-mini:hover {
   text-decoration: underline;
 }
-
-
-/* =========================================================
-   MULTI SELECT
-   ========================================================= */
 
 .filter-select-wrap {
   position: relative;
@@ -2350,11 +2181,6 @@ main.body {
 
   color: #174A7E;
 }
-
-
-/* =========================================================
-   DROPDOWN
-   ========================================================= */
 
 .filter-select-backdrop {
   position: fixed;
@@ -2534,11 +2360,6 @@ main.body {
   text-align: center;
 }
 
-
-/* =========================================================
-   DROPDOWN FOOTER
-   ========================================================= */
-
 .filter-dropdown-footer {
   display: flex;
   align-items: center;
@@ -2577,11 +2398,6 @@ main.body {
 .filter-dropdown-footer button:hover {
   background: #881337;
 }
-
-
-/* =========================================================
-   STATUS
-   ========================================================= */
 
 .filter-status-grid {
   display: grid;
@@ -2631,11 +2447,6 @@ main.body {
 
   font-weight: 800;
 }
-
-
-/* =========================================================
-   ACTIVE FILTER
-   ========================================================= */
 
 .filter-active-box {
   margin-top: 2px;
@@ -2707,11 +2518,6 @@ main.body {
 
   text-overflow: ellipsis;
 }
-
-
-/* =========================================================
-   ACTION
-   ========================================================= */
 
 .filter-actions {
   display: flex;
@@ -2795,11 +2601,6 @@ main.body {
   height: 13px;
 }
 
-
-/* =========================================================
-   LOADING
-   ========================================================= */
-
 .filter-loading {
   min-height: 100px;
 
@@ -2833,11 +2634,6 @@ main.body {
   }
 }
 
-
-/* =========================================================
-   ANIMATION
-   ========================================================= */
-
 @keyframes flyoutIn {
   from {
     opacity: 0;
@@ -2855,11 +2651,6 @@ main.body {
       scale(1);
   }
 }
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
 
 @media (max-width: 700px) {
 
@@ -2975,11 +2766,6 @@ main.body {
 
   animation: flyoutIn .18s ease-out;
 }
-
-
-/* =========================================================
-   HEADER
-   ========================================================= */
 
 .search-head {
   flex: 0 0 auto;
@@ -3126,11 +2912,6 @@ main.body {
   border-color: #efc5cf;
 }
 
-
-/* =========================================================
-   BODY
-   ========================================================= */
-
 .search-body {
   flex: 1 1 auto;
 
@@ -3153,11 +2934,6 @@ main.body {
   background: #C9D8E5;
   border-radius: 20px;
 }
-
-
-/* =========================================================
-   SEARCH INPUT
-   ========================================================= */
 
 .search-input-wrap {
   position: relative;
@@ -3251,11 +3027,6 @@ main.body {
   background: #fff1f3;
 }
 
-
-/* =========================================================
-   EMPTY / LOADING
-   ========================================================= */
-
 .search-loading,
 .search-empty {
   display: flex;
@@ -3311,11 +3082,6 @@ main.body {
   font-size: 8px;
   line-height: 1.45;
 }
-
-
-/* =========================================================
-   RESULTS
-   ========================================================= */
 
 .search-result-count {
   margin: 6px 2px 5px;
@@ -3639,10 +3405,6 @@ main.body {
   padding: 10px 10px 8px;
 }
 
-/* =========================================================
-   LAYER MANAGER HEADER
-   ========================================================= */
-
 .layer-manager-head {
   display: flex;
   align-items: center;
@@ -3690,10 +3452,6 @@ main.body {
   text-align: center;
 }
 
-/* =========================================================
-   GROUP
-   ========================================================= */
-
 .layer-group {
   margin: 0;
 
@@ -3703,10 +3461,6 @@ main.body {
 .layer-group:last-child {
   border-bottom: 0;
 }
-
-/* =========================================================
-   GROUP HEADER
-   ========================================================= */
 
 .layer-group-head {
   width: 100%;
@@ -3780,17 +3534,9 @@ main.body {
   color: var(--card-title);
 }
 
-/* =========================================================
-   LAYER LIST
-   ========================================================= */
-
 .layer-list {
   padding: 0 0 6px;
 }
-
-/* =========================================================
-   LAYER ITEM
-   ========================================================= */
 
 .layer-item {
   margin: 1px 0;
@@ -3809,10 +3555,6 @@ main.body {
 .layer-item.active {
   background: rgba(127, 143, 160, .035);
 }
-
-/* =========================================================
-   LAYER ROW
-   ========================================================= */
 
 .layer-row {
   min-height: 33px;
@@ -3840,10 +3582,6 @@ main.body {
 
   pointer-events: none;
 }
-
-/* =========================================================
-   GIS CHECKBOX
-   ========================================================= */
 
 .gis-check {
   width: 16px;
@@ -3921,10 +3659,6 @@ main.body {
   border-radius: 0;
 }
 
-/* =========================================================
-   LAYER NAME
-   ========================================================= */
-
 .layer-name {
   min-width: 0;
 
@@ -3945,10 +3679,6 @@ main.body {
 
   font-weight: 600;
 }
-
-/* =========================================================
-   BIDANG TANAH — PROPERTY PANEL
-   ========================================================= */
 
 .layer-properties {
   margin: 1px 7px 8px 29px;
@@ -5820,7 +5550,7 @@ main.body {
   position: absolute;
   top: 88px;
   left: 82px;
-  width: 360px;
+  width: 400px;
   height: 470px;
   max-height: calc(100vh - 140px);
   display: flex;
@@ -11608,7 +11338,7 @@ main.body {
 }
 
 .search-flyout {
-  width: 330px;
+  width: 350px;
   height: 460px;
   border: 1px solid var(--terrain-ui-line);
   border-radius: 10px;
@@ -11749,11 +11479,6 @@ main.body {
     max-height: 300px;
   }
 }
-
-
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -11990,8 +11715,6 @@ header.bar h1,
   color: #1769A8;
 }
 
-/* ---------- PRIMARY BUTTONS ---------- */
-
 .btn-primary,
 button.primary,
 .kb-primary {
@@ -12007,8 +11730,6 @@ button.primary:hover,
   border-color: #125487;
 }
 
-/* ---------- SECONDARY BUTTONS ---------- */
-
 button.secondary,
 .kb-secondary {
   background: #FFFFFF;
@@ -12021,8 +11742,6 @@ button.secondary:hover,
   background: #E8F4FC;
   border-color: #AFCFE3;
 }
-
-/* ---------- INPUTS ---------- */
 
 input,
 select,
@@ -12041,8 +11760,6 @@ textarea:focus {
     0 0 0 3px rgba(91,174,157,.14);
 }
 
-/* ---------- STATUS / ACCENT ---------- */
-
 .status-ok,
 .status-terverifikasi,
 .badge-ok,
@@ -12058,16 +11775,12 @@ textarea:focus {
   border-color: #E8D58A;
 }
 
-/* ---------- MAP FLOATING INFO ---------- */
-
 .map-info {
   border-color: #D4E5F1;
 
   box-shadow:
     0 4px 14px rgba(23,105,168,.12);
 }
-
-/* ---------- KARTU BIDANG ---------- */
 
 .kartu.open.kb-modern {
   background: #FFFFFF;
@@ -12106,16 +11819,12 @@ textarea:focus {
   background: #FFFFFF;
 }
 
-/* ---------- KARTU BADGE / CHIP ---------- */
-
 .kb-badge,
 .kb-chip {
   background: #E8F4FC;
   border-color: #CFE3F1;
   color: #1769A8;
 }
-
-/* ---------- LINKS ---------- */
 
 a {
   color: #1769A8;
@@ -12125,42 +11834,26 @@ a:hover {
   color: #125487;
 }
 
-/* ---------- SELECTION ---------- */
-
 ::selection {
   background: #BFE0F4;
   color: #173F61;
 }
 
-
-
-
-/* =========================================================
-   FINAL COLOR CLEANUP
-   Merah/maroon -> blue/teal palette
-   Dark mode -> proper dark blue theme
-   ========================================================= */
-
-/* ---------- LIGHT MODE: REMOVE RED / MAROON ACCENTS ---------- */
-
 :root {
   --pub-danger: #D65C5C;
 }
 
-/* Generic danger/status accents */
 .kb-danger {
   background: #FFF1F2 !important;
   color: #B94A5A !important;
   border-color: #F0CDD3 !important;
 }
 
-/* Style segment active */
 .style-segment button.active {
   background: #E8F4FC !important;
   color: #1769A8 !important;
 }
 
-/* Red notification / small badges */
 .kb-status,
 .kb-badge {
   border-color: #D4E5F1;
@@ -12172,14 +11865,11 @@ a:hover {
   color: #B94A5A !important;
   border-color: #F0CDD3 !important;
 }
-
-/* Filter active area */
 .filter-active-box {
   border-color: #B8D8E6 !important;
   background: #F5FBFE !important;
 }
 
-/* Small red accents in cards / forms */
 .kb-card-danger,
 .kb-alert-danger,
 .kb-warning-danger {
@@ -12188,14 +11878,12 @@ a:hover {
   color: #B94A5A !important;
 }
 
-/* Popup / action buttons */
 .pop > button:hover {
   background: #E8F4FC !important;
   border-color: #1769A8 !important;
   color: #1769A8 !important;
 }
 
-/* Basemap active card */
 .basemap-card.active {
   border-color: #1769A8 !important;
   background: #F4FAFE !important;
@@ -12211,7 +11899,6 @@ a:hover {
   color: #FFFFFF !important;
 }
 
-/* Basemap / layer icon accents */
 .layer-panel-icon,
 .basemap-panel-icon {
   color: #1769A8 !important;
@@ -12219,7 +11906,6 @@ a:hover {
   border-color: #CFE3F1 !important;
 }
 
-/* Red-looking layer group accents */
 .layer-group-title,
 .layer-name {
   color: #496A80;
@@ -12229,14 +11915,12 @@ a:hover {
   background: #F1F8FC !important;
 }
 
-/* Checked layer */
 .layer-row input[type="checkbox"]:checked + .gis-check {
   background: #1769A8 !important;
   border-color: #1769A8 !important;
   color: #FFFFFF !important;
 }
 
-/* Active filter / selected controls */
 .filter-status-option.is-selected,
 .filter-option.is-selected {
   border-color: #1769A8 !important;
@@ -12254,31 +11938,18 @@ a:hover {
   background: #125487 !important;
 }
 
-/* Status colors that were maroon */
 .status-danger,
 .status-rejected,
 .status-ditolak {
   color: #B94A5A !important;
 }
 
-/* Keep warning semantics but remove maroon tone */
 .status-warning,
 .badge-warning {
   background: #FFF7DF !important;
   border-color: #E9D58D !important;
   color: #96721B !important;
 }
-
-
-
-
-
-
-/* =========================================================
-   STATISTIKA — BLUE OVERRIDE
-   Tambahan ini sengaja diletakkan paling bawah agar menang
-   dari deklarasi warna statistik yang sebelumnya.
-   ========================================================= */
 
 .statistik-flyout {
   --stat-red: #174A7E;
@@ -12287,7 +11958,6 @@ a:hover {
   --stat-yellow: #4FA3C7;
   --stat-green: #63B4D5;
   --stat-pink: #8AC6DF;
-
   --stat-text: #35556F;
   --stat-text-2: #607788;
   --stat-muted: #8AA0B2;
@@ -12297,7 +11967,6 @@ a:hover {
   --stat-line: #E1EAF1;
 }
 
-/* Header */
 .statistik-icon {
   color: #174A7E !important;
   background: #F3F8FC !important;
@@ -12314,7 +11983,6 @@ a:hover {
   border-color: #C9DCE9 !important;
 }
 
-/* Bar chart */
 .stat-vchart-item:nth-child(1) .stat-vchart-bar { background: #174A7E !important; }
 .stat-vchart-item:nth-child(2) .stat-vchart-bar { background: #245F91 !important; }
 .stat-vchart-item:nth-child(3) .stat-vchart-bar { background: #2F80B7 !important; }
@@ -12328,7 +11996,6 @@ a:hover {
   outline-color: rgba(23, 74, 126, .35) !important;
 }
 
-/* Legend dots */
 .stat-legend-row:nth-child(1) .stat-legend-dot { background: #174A7E !important; }
 .stat-legend-row:nth-child(2) .stat-legend-dot { background: #245F91 !important; }
 .stat-legend-row:nth-child(3) .stat-legend-dot { background: #2F80B7 !important; }
@@ -12336,8 +12003,6 @@ a:hover {
 .stat-legend-row:nth-child(5) .stat-legend-dot { background: #63B4D5 !important; }
 .stat-legend-row:nth-child(6) .stat-legend-dot { background: #8AC6DF !important; }
 .stat-legend-dot { background: #174A7E !important; }
-
-/* Progress dots */
 .stat-progress-row:nth-child(1) .stat-status-dot { background: #174A7E !important; }
 .stat-progress-row:nth-child(2) .stat-status-dot { background: #245F91 !important; }
 .stat-progress-row:nth-child(3) .stat-status-dot { background: #2F80B7 !important; }
@@ -12345,8 +12010,6 @@ a:hover {
 .stat-progress-row:nth-child(5) .stat-status-dot { background: #63B4D5 !important; }
 .stat-progress-row:nth-child(6) .stat-status-dot { background: #8AC6DF !important; }
 .stat-status-dot { background: #174A7E !important; }
-
-/* Donut SVG — force blue palette when the chart uses SVG paths/circles. */
 .stat-donut svg path:nth-child(1),
 .stat-donut svg circle:nth-child(1) { stroke: #174A7E !important; }
 .stat-donut svg path:nth-child(2),
@@ -12361,14 +12024,11 @@ a:hover {
 .stat-donut svg circle:nth-child(6) { stroke: #8AC6DF !important; }
 .stat-donut svg path:nth-child(7),
 .stat-donut svg circle:nth-child(7) { stroke: #A8D8E7 !important; }
-
-/* If a donut has a single SVG element, at least make its stroke blue. */
 .stat-donut svg path,
 .stat-donut svg circle {
   stroke: #174A7E !important;
 }
 
-/* Restore per-segment colors after the generic rule above. */
 .stat-donut svg path:nth-child(1), .stat-donut svg circle:nth-child(1) { stroke: #174A7E !important; }
 .stat-donut svg path:nth-child(2), .stat-donut svg circle:nth-child(2) { stroke: #245F91 !important; }
 .stat-donut svg path:nth-child(3), .stat-donut svg circle:nth-child(3) { stroke: #2F80B7 !important; }
@@ -13436,12 +13096,6 @@ html[data-theme="dark"] .panel {
   box-shadow: var(--terrain-ui-shadow);
 }
 
-/* =========================================================
-   DARK BLUE MEDIUM — UI PANEL OVERRIDE
-   Tidak mengubah map, layout, ukuran, atau struktur komponen.
-   Hanya menaikkan tone panel dari hitam/maroon menjadi biru.
-   ========================================================= */
-
 html[data-theme="dark"] {
   --dark-panel: #173F61;
   --dark-panel-2: #1D4668;
@@ -13756,9 +13410,6 @@ html[data-theme="dark"] .layer-loading-spinner {
   border-color: var(--dark-panel-line);
   border-top-color: #2FA9A8;
 }
-/* =========================================================
-   DAFTAR BIDANG — DARK TEXT
-   ========================================================= */
 
 html[data-theme="dark"] .daftar-table th {
   background: var(--dark-panel-2);
