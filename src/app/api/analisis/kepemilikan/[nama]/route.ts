@@ -50,6 +50,7 @@ export async function GET(
       `
       SELECT
         id,
+        fid,
         nib,
 
         nama_milik,
