@@ -97,7 +97,7 @@ function FormMasuk() {
                   <IconParcel />
                 </span>
                 <div>
-                  <b>±950</b>
+                  <b>±672</b>
                   <span>Bidang Terdampak</span>
                 </div>
               </div>
